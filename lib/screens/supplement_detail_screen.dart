@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import '../models/items.dart';
 
 import '../data/dummy_data.dart';
 
 class SupplementDetailScreen extends StatefulWidget {
-  static const routeName = '/exercise-detail';
+  static const routeName = '/supplement-detail';
 
   final Function toggleFavorite;
   final Function isFavorite;
@@ -42,14 +43,14 @@ class _SupplementDetailScreenState extends State<SupplementDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final ExerciseId = ModalRoute.of(context).settings.arguments as String;
-    final selectedExercise = DUMMY_EXERCISES.firstWhere(
-      (Exercise) => Exercise.id == ExerciseId,
+    final SupplementId = ModalRoute.of(context).settings.arguments as String;
+    final selectedSupplement = DUMMY_SUPPLEMENTS.firstWhere(
+      (Supplement) => Supplement.id == SupplementId,
     );
 
     return Center(
       child: Scaffold(
-        appBar: AppBar(title: Text('${selectedExercise.title}')),
+        appBar: AppBar(title: Text('${selectedSupplement.title}')),
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -57,7 +58,7 @@ class _SupplementDetailScreenState extends State<SupplementDetailScreen> {
                 height: 300,
                 width: double.infinity,
                 child: Image.network(
-                  selectedExercise.image,
+                  selectedSupplement.image,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -74,11 +75,11 @@ class _SupplementDetailScreenState extends State<SupplementDetailScreen> {
                             padding: EdgeInsets.symmetric(
                                 vertical: 5, horizontal: 10),
                             child: Text(
-                              selectedExercise.equipment[index],
+                              selectedSupplement.categories[index],
                             ),
                           ),
                         ),
-                        itemCount: selectedExercise.equipment.length,
+                        itemCount: selectedSupplement.categories.length,
                       ),
                     ),
                     100),
@@ -95,13 +96,13 @@ class _SupplementDetailScreenState extends State<SupplementDetailScreen> {
                                 child: Text('#${index + 1}'),
                               ),
                               title: Text(
-                                selectedExercise.steps[index],
+                                selectedSupplement.targetCategory.name[index],
                               ),
                             ),
                             Divider(),
                           ],
                         ),
-                        itemCount: selectedExercise.steps.length,
+                        itemCount: selectedSupplement.id.length,
                       ),
                       400),
                 ],
@@ -111,9 +112,9 @@ class _SupplementDetailScreenState extends State<SupplementDetailScreen> {
         ),
         floatingActionButton: FloatingActionButton(
           child: Icon(
-            widget.isFavorite(ExerciseId) ? Icons.star : Icons.star_border,
+            widget.isFavorite(SupplementId) ? Icons.star : Icons.star_border,
           ),
-          onPressed: () => widget.toggleFavorite(ExerciseId),
+          onPressed: () => widget.toggleFavorite(SupplementId),
         ),
       ),
     );

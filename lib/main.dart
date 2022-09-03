@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import './screens/tabs_screen.dart';
 import 'screens/exercises_screen.dart';
 import './screens/exercise_detail_screen.dart';
-import 'screens/exercise_category_screen.dart';
+import 'screens/exercise_categories_screen.dart';
 import './data/dummy_data.dart';
 import 'models/items.dart';
-import 'screens/supplements_screen.dart';
+import './screens/supplements_screen.dart';
 import './screens/supplement_detail_screen.dart';
-import './screens/supplement_category_screen.dart';
+import './screens/supplement_categories_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -27,6 +27,7 @@ class _MyAppState extends State<MyApp> {
 
   // List<Exercise> _availableExercises = DUMMY_EXERCISES;
   List<Exercise> _favoriteExercises = [];
+  List<Supplement> _favoriteSupplements = [];
   List<Supplement> _supplements = DUMMY_SUPPLEMENTS;
 
   // void _setFilters(Map<String, bool> filterData) {
@@ -51,7 +52,7 @@ class _MyAppState extends State<MyApp> {
   //   });
   // }
 
-  void _toggleFavorite(String ExerciseId) {
+  void _toggleExerciseFavorite(String ExerciseId) {
     final existingIndex =
         _favoriteExercises.indexWhere((Exercise) => Exercise.id == ExerciseId);
     if (existingIndex >= 0) {
@@ -67,8 +68,29 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+  void _toggleSupplementFavorite(String SupplementId) {
+    final existingIndex = _favoriteSupplements
+        .indexWhere((Supplement) => Supplement.id == SupplementId);
+    if (existingIndex >= 0) {
+      setState(() {
+        _favoriteSupplements.removeAt(existingIndex);
+      });
+    } else {
+      setState(() {
+        _favoriteSupplements.add(
+          DUMMY_SUPPLEMENTS
+              .firstWhere((Supplement) => Supplement.id == SupplementId),
+        );
+      });
+    }
+  }
+
   bool _isExerciseFavorite(String id) {
     return _favoriteExercises.any((Exercise) => Exercise.id == id);
+  }
+
+  bool _isSupplementFavorite(String id) {
+    return _favoriteSupplements.any((Supplement) => Supplement.id == id);
   }
 
   @override
@@ -101,12 +123,13 @@ class _MyAppState extends State<MyApp> {
         ExercisesScreen.routeName: (context) =>
             ExercisesScreen(DUMMY_EXERCISES),
         ExerciseDetailScreen.routeName: (context) =>
-            ExerciseDetailScreen(_toggleFavorite, _isExerciseFavorite),
+            ExerciseDetailScreen(_toggleExerciseFavorite, _isExerciseFavorite),
         SupplementsCategoriesScreen.routeName: (context) =>
             SupplementsCategoriesScreen(),
         SupplementsScreen.routeName: (context) =>
             SupplementsScreen(_supplements),
-        // SupplementDetailScreen.routeName: (context) => SupplementDetailScreen(),
+        SupplementDetailScreen.routeName: (context) => SupplementDetailScreen(
+            _toggleSupplementFavorite, _isSupplementFavorite),
       },
       onGenerateRoute: (settings) {
         // print(settings.arguments);

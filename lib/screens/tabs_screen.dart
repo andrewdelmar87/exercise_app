@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_complete_guide/screens/supplement_category_screen.dart';
+import 'package:flutter_complete_guide/screens/supplement_categories_screen.dart';
 import 'favorites_screen.dart';
-import 'exercise_category_screen.dart';
+import 'exercise_categories_screen.dart';
 import '../widgets/main_drawer.dart';
 import '../models/items.dart';
 

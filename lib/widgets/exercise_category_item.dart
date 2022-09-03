@@ -33,6 +33,14 @@ class ExerciseCategoryItem extends StatelessWidget {
             style: Theme.of(context).textTheme.headline6,
           ),
           decoration: BoxDecoration(
+            image: DecorationImage(
+              image: NetworkImage(image),
+              fit: BoxFit.cover,
+              opacity: 0.9,
+              colorFilter: ColorFilter.mode(
+                  Color.fromARGB(50, 0, 0, 0), BlendMode.darken),
+            ),
+            // decoration: BoxDecoration(
             // gradient: LinearGradient(
             //   colors: [
             //     color.withOpacity(0.7),

@@ -42,17 +42,19 @@ class SupplementItem extends StatelessWidget {
     }
   }
 
-  void selectExercise(BuildContext context) {
+  void selectSupplement(BuildContext context) {
     Navigator.of(context)
         .pushNamed(
       SupplementDetailScreen.routeName,
       arguments: id,
     )
-        .then((result) {
-      if (result != null) {
-        // removeItem(result);
-      }
-    });
+        .then(
+      (result) {
+        if (result != null) {
+          // removeItem(result);
+        }
+      },
+    );
   }
 
   // String get categoryText {
@@ -73,9 +75,9 @@ class SupplementItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(categoryText);
+    print(id);
     return InkWell(
-      onTap: () => selectExercise(context),
+      onTap: () => selectSupplement(context),
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
